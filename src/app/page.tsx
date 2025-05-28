@@ -1,9 +1,19 @@
-import Wellcome from "@/components/Wellcome";
+import NavBar from "@/components/NavBar";
+
+
+
 
 export default function Home() {
   return (
-    <div className="">
-      <Wellcome/>
+    <div className=" ">
+
+      <NavBar/>
+      <NavBar/>
+      <NavBar/>
+      <NavBar/>
+      
+    
+
     </div>
   );
 }
