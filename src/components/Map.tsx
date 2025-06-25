@@ -1,6 +1,6 @@
 'use client';
 
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvent, useMap} from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -64,6 +64,24 @@ const points: Point[] = [
   },
 ];
 
+function ShowLatLongOnClick() {
+  const map = useMap()
+
+  useMapEvent('click',(event) => {
+      const lat = event.latlng.lat
+      const long = event.latlng.lng
+
+      //Criar e exibir um Popup na posição do click
+      L.popup()
+      .setLatLng([lat, long])
+      .setContent(
+        `Você clicou em: Lat: ${lat.toFixed(2)} e Long: ${long.toFixed(2)}`
+      )
+      .openOn(map)
+  })
+  return null
+}
+
 export default function Map() {
   return (
     <MapContainer
@@ -96,6 +114,8 @@ export default function Map() {
           </Popup>
         </Marker>
       ))}
+
+      <ShowLatLongOnClick/>
     </MapContainer>
   );
 }
