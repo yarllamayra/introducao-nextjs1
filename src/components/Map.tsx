@@ -3,6 +3,8 @@
 import { MapContainer, TileLayer, Marker, Popup, useMapEvent, useMap} from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useState } from 'react';
+import PlaceForm from './PlaceForm';
 
 type PointsType = 'restaurant' | 'bar' | 'hotel';
 
@@ -82,7 +84,26 @@ function ShowLatLongOnClick() {
   return null
 }
 
+type Props = {
+  setFormPosition: (position: [number,number]) => void
+}
+
+function ShowPlaceFormOnClick({setFormPosition}: Props) {
+  useMapEvent("click", (e)=>{
+
+    const position: [number, number] = [e.latlng.lat, e.latlng.lng]
+     setFormPosition(position)
+  })
+
+  return null;
+}
+
 export default function Map() {
+
+  const [formPosition, setFormPosition] = useState<[number,number] | null>(
+    null
+  )
+
   return (
     <MapContainer
       center={[-3.029350, -39.653422]}
@@ -115,7 +136,29 @@ export default function Map() {
         </Marker>
       ))}
 
-      <ShowLatLongOnClick/>
+      {/* <ShowLatLongOnClick/> */}
+
+      <ShowPlaceFormOnClick setFormPosition={setFormPosition}/>
+
+      {formPosition && (
+        <Marker
+          position={formPosition}
+          icon={
+            new L.Icon({
+              iconUrl:"https://cdn-icons-png.flaticon.com/512/684/684908.png",
+              iconSize:[40, 40],
+
+            })
+          }
+        >
+          <Popup>
+            <PlaceForm 
+            lat={parseFloat(formPosition[0].toFixed(2))} 
+            lng={parseFloat(formPosition[1].toFixed(2))}/>
+          </Popup>
+        </Marker>
+      )}
+
     </MapContainer>
   );
 }

@@ -42,9 +42,9 @@ export default function Home() {
 
       </section>
 
-      <div className="flex justify-center">
-        <PlaceForm/>
-      </div>
+      {/* <div className="flex justify-center">
+        <PlaceForm lat={22} lng={-23}/>
+      </div> */}
 
 
     </div>
