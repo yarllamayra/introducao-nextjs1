@@ -1,6 +1,6 @@
 import { Card } from "@/components/Card";
 import NavBar from "@/components/NavBar";
-import PlaceForm from "@/components/PlaceForm";
+// import PlaceForm from "@/components/PlaceForm";
 
 
 

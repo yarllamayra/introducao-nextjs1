@@ -6,6 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
 import PlaceForm from './PlaceForm';
 import axios from 'axios';
+import Image from 'next/image';
 
 type PointsType = "RESTAURANTE" | "BAR" | "HOTEL"
 
@@ -41,50 +42,6 @@ type Place = {
   images: {url:string; public_id:string}[];
 };
 
-// const points: Point[] = [
-//   {
-//     id: 1,
-//     name: 'Restaurante Saboroso',
-//     position: [-3.024930, -39.649836],
-//     image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     description: 'Um restaurante incrível no centro.',
-//     type: 'restaurant',
-//   },
-//   {
-//     id: 2,
-//     name: 'Bar do Zé',
-//     position: [-3.024860, -39.643643],
-//     image: 'https://plus.unsplash.com/premium_photo-1661730134261-4381db9b5de3?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     description: 'O melhor happy hour da cidade.',
-//     type: 'bar',
-//   },
-//   {
-//     id: 3,
-//     name: 'Hotel Confort',
-//     position: [-3.034040, -39.654925],
-//     image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//     description: 'Hotel confortável e bem localizado.',
-//     type: 'hotel',
-//   },
-// ];
-
-function ShowLatLongOnClick() {
-  const map = useMap()
-
-  useMapEvent('click',(event) => {
-      const lat = event.latlng.lat
-      const long = event.latlng.lng
-
-      //Criar e exibir um Popup na posição do click
-      L.popup()
-      .setLatLng([lat, long])
-      .setContent(
-        `Você clicou em: Lat: ${lat.toFixed(2)} e Long: ${long.toFixed(2)}`
-      )
-      .openOn(map)
-  })
-  return null
-}
 
 type Props = {
   setFormPosition: (position: [number,number]) => void
@@ -113,7 +70,10 @@ export default function Map() {
 
       try{
         //npm i axios
-        const response = await axios.get<Place[]>("http://localhost:3001/places")
+        if (!process.env.NEXT_PUBLIC_API_URL) {
+          throw new Error("API_URL environment variable is not defined");
+        }
+        const response = await axios.get<Place[]>(`${process.env.NEXT_PUBLIC_API_URL}/places`);
         setPlaces(response.data)
       }catch(err){
         console.log("Erro ao carregar os locais: ", err)
@@ -166,12 +126,12 @@ export default function Map() {
           <Popup>
             <div className='text-center'>
             {place.images?.[0] && (
-              <img 
-                src={place.images[0].url} 
-                alt={place.name} 
+              <Image
+                src={place.images[0].url}
+                alt={place.name}
                 className='w-full h-24 object-cover rounded mb-2'
-                />
-              )}
+              />
+            )}
               <h2 className='font-semibold mx-10'>{place.name}</h2>
               <p className='text-sm'>{place.phone}</p>
             </div>
