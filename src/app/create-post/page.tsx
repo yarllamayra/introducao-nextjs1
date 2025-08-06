@@ -1,116 +1,55 @@
-'use client'
+import NavBar from "@/components/NavBar";
+import Cards from "@/components/Cards";
+import { Button } from "@/components/ui/button";
 
-import { useState } from "react";
-import axios from "axios";
-import { Button } from "@/components/ui/button"
+export default function About() {
+  return (
+    <div className="bg-amber-50 min-h-screen px-4 py-8">
+      {/* <NavBar label1="Produtos" label2="Adminitradores" label3="Time" /> */}
 
-type FormData = {
-    title: string;
-    body: string;
-}
+      <h1 className="text-center font-bold text-4xl mb-6 uppercase text-amber-900">
+        Animais fofinhos divos:
+      </h1>
 
-type ResponseData = {
-    id: number;
-    title: string;
-    body: string;
-}
+      <p className="text-justify text-lg text-amber-900 max-w-4xl mx-auto mb-10 leading-relaxed">
+        {/* Espaço para descrição se desejar no futuro */}
+        Aqui você encontra uma pequena seleção de animais adoráveis com imagens e descrições.
+      </p>
 
+      <div className="flex justify-center mb-12">
+        <Button className="bg-amber-700 text-white hover:bg-amber-800 transition-colors duration-300">
+          veja mais
+        </Button>
+      </div>
 
+      <div>
+        <h2 className="text-3xl font-bold text-center text-amber-900 mb-8 uppercase">
+          animais:
+        </h2>
 
-export default function CreatePostPage() {
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <Cards
+            title="cachorro"
+            description="cachorrin"
+            imageURL="https://i.pinimg.com/736x/94/b1/02/94b1021c4f8294c4a0b6e8213ca0374f.jpg"
+            category={["cassoro"]}
+          />
 
-    const [formData, setFormaData] = useState<FormData>(
-        { title: "", body: "" })
-    
-    const [responseData, setResponseData] = useState<ResponseData | null>(
-        null
-    )
+          <Cards
+            title="gatinho"
+            description="gatin"
+            imageURL="https://i.pinimg.com/736x/1f/54/ac/1f54acbbecdfb5b248d42ace992b699b.jpg"
+            category={["gatin"]}
+          />
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormaData({
-            ...formData,
-            [event.target.name]: event.target.value
-
-        })
-    } 
-
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-
-        const {data} = await axios.post(
-            "https://jsonplaceholder.typicode.com/posts",
-             formData,
-             { headers: {"Content-Type":"application/json"}}
-            )
-        setResponseData(data)
-    }
-
-
-    return (
-        <div className="flex items-center justify-center p-6">
-            <div >
-                <h1 className="text-2xl font-bold mb-4">
-                    Criar novo Post
-                </h1>
-
-                <form onSubmit={handleSubmit}>
-                    {/* Título */}
-                    <div>
-                        <label className="block text-sm font-medium">
-                            Título
-                        </label>
-                        <input
-                            className="mt-1 border rounded px-3 py-2 w-full "
-                            type="text"
-                            name="title"
-                            value={formData.title}
-                            required
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    {/* Conteúdo*/}
-                    <div>
-                        <label className="block text-sm font-medium">
-                            Conteúdo
-                        </label>
-                        <textarea
-                            name="body"
-                            className="mt-1 border rounded px-3 py-2 w-full"
-                            rows={2}
-                            onChange={handleChange}
-                            value={formData.body}
-                        />
-                    </div>
-
-                    {/* <button
-                        className="bg-blue-600 text-white py-2 px-3
-                    hover:bg-blue-700 rounded  cursor-pointer">
-                        Publicar
-                    </button> */}
-                    <Button type="submit">Click me</Button>
-
-
-                </form>
-
-                {responseData && (
-                    <div 
-                        className="mt-6 border border-green-500 bg-green-100">
-                        <p>Post criado com sucesso!</p>
-                        <p>ID: {responseData.id}</p>
-                        <p>Título: {responseData.title}</p>
-                        <p>Conteúdo: {responseData.body}</p>
-
-                    </div>
-                )}
-
-
-            </div>
-
+          <Cards
+            title="galinha"
+            description="cócó"
+            imageURL="https://i.pinimg.com/736x/9f/fe/39/9ffe39bd13dd9d0a5a32f960eb78c70f.jpg"
+            category={["galinha"]}
+          />
         </div>
-
-
-
-    )
-
+      </div>
+    </div>
+  );
 }
