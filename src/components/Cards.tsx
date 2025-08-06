@@ -6,6 +6,9 @@ type CardProps = {
     | "cassoro"
     | "gatin"
     | "galinha"
+    | "porquin"
+    | "patin"
+    | "coelo"
 
   )[];
 };
