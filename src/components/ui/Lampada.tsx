@@ -16,7 +16,6 @@ export default function Lampada() {
         />
       </div>
 
-      {/* Botão deslizante */}
       <div
         onClick={() => setLigada(!ligada)}
         className={`w-20 h-10 flex items-center rounded-full p-1 cursor-pointer transition-colors duration-300 ${
