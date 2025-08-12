@@ -2,6 +2,7 @@
 "use client"
 import Likes from "@/components/Likebutton";
 import Counter from "@/components/ui/Counter";
+import Lampada from "@/components/ui/Lampada";
 
 export default function About(){
 
@@ -10,8 +11,7 @@ export default function About(){
             {/* <NavBar label1="Produtos" label2="Adminitradores" label3="Time"/> */}
             <h1>Sobre nós</h1>
             <p>Informações sobre a empresa ...</p>
-
-            <Likes initial = {0} />
+            <Lampada/>
 
         </div>
     )
