@@ -1,8 +1,10 @@
 // import NavBar from "@/components/NavBar"
 "use client"
 import Likes from "@/components/Likebutton";
+import BotaoReproducao from "@/components/ui/BotaoReproducao";
 import Counter from "@/components/ui/Counter";
 import Lampada from "@/components/ui/Lampada";
+import LikeButton from "@/components/ui/LikeButton";
 import MiniDisplay from "@/components/ui/miniDisplay";
 
 export default function About(){
@@ -13,7 +15,11 @@ export default function About(){
             <h1>Sobre nós</h1>
             <p>Informações sobre a empresa ...</p> */}
             
-            <MiniDisplay/>
+            {/* <MiniDisplay/> */}
+
+            {/* <LikeButton/> */}
+
+            <BotaoReproducao/>
 
         </div>
     )
