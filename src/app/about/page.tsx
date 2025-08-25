@@ -6,6 +6,7 @@ import Counter from "@/components/ui/Counter";
 import Lampada from "@/components/ui/Lampada";
 import LikeButton from "@/components/ui/LikeButton";
 import MiniDisplay from "@/components/ui/miniDisplay";
+import ListaDeCompras from "@/components/ui/ListaDeCompras";
 
 export default function About(){
 
@@ -19,7 +20,9 @@ export default function About(){
 
             {/* <LikeButton/> */}
 
-            <BotaoReproducao/>
+            {/* <BotaoReproducao/> */}
+            
+            <ListaDeCompras/>
 
         </div>
     )
